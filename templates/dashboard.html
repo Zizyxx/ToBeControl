@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pasien</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="font-bold text-xl text-blue-600">🏥 TBC Assistant</div>
+            <div class="flex items-center gap-3">
+                {% if user.photo_url %}
+                <img src="{{ user.photo_url }}" class="w-8 h-8 rounded-full">
+                {% endif %}
+                <span class="font-medium">{{ user.first_name }}</span>
+                <a href="/logout" class="text-red-500 text-sm ml-2 hover:underline">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Kartu Statistik -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border border-blue-100">
+            <h2 class="text-gray-500 text-sm uppercase font-bold mb-2">Total Kepatuhan</h2>
+            <div class="text-4xl font-bold text-blue-600">{{ total }} <span class="text-lg text-gray-400">kali minum</span></div>
+            <p class="text-gray-400 text-sm mt-2">Terus pertahankan semangatmu!</p>
+        </div>
+
+        <!-- Kartu Jadwal -->
+        <div class="bg-white p-6 rounded-xl shadow-sm">
+            <h2 class="font-bold text-lg mb-4 text-gray-700">⏰ Jadwal Obat Aktif</h2>
+            {% if jadwal %}
+                <ul class="space-y-3">
+                {% for item in jadwal %}
+                    <li class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                        <span class="font-mono font-bold text-blue-600">{{ item.jam }}</span>
+                        <span class="font-medium">{{ item.obat }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p class="text-gray-400">Belum ada jadwal. Atur via Bot Telegram.</p>
+            {% endif %}
+        </div>
+
+        <!-- Kartu Riwayat -->
+        <div class="bg-white p-6 rounded-xl shadow-sm md:col-span-2">
+            <h2 class="font-bold text-lg mb-4 text-gray-700">📜 Riwayat Terakhir</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="text-sm text-gray-500 border-b">
+                            <th class="p-2">Waktu</th>
+                            <th class="p-2">Obat</th>
+                            <th class="p-2">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in logs %}
+                        <tr class="border-b last:border-0 hover:bg-gray-50">
+                            <td class="p-2 text-sm">{{ log.waktu.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td class="p-2 font-medium">{{ log.obat }}</td>
+                            <td class="p-2 text-green-600 text-sm font-bold">✅ {{ log.status }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

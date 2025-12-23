@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login TBC Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg text-center max-w-sm w-full">
+        <img src="https://cdn-icons-png.flaticon.com/512/3022/3022323.png" alt="Logo" class="w-20 mx-auto mb-4">
+        <h1 class="text-2xl font-bold text-gray-800 mb-2">TBC Assistant Web</h1>
+        <p class="text-gray-500 mb-6">Pantau jadwal dan kesehatanmu dengan mudah.</p>
+
+        <!-- WIDGET LOGIN TELEGRAM -->
+        <!-- Ganti 'data-telegram-login' dengan username bot kamu! -->
+        <script async src="https://telegram.org/js/telegram-widget.js?22" 
+                data-telegram-login="{{ bot_username }}" 
+                data-size="large" 
+                data-radius="10" 
+                data-auth-url="/login_callback"
+                data-request-access="write"></script>
+        
+        <p class="text-xs text-gray-400 mt-4">Login aman menggunakan akun Telegram.</p>
+    </div>
+
+</body>
+</html>
